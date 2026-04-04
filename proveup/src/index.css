@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cores oficiais da ProveUP */
+  --color-proveup-dark: #1A1A1A;
+  --color-proveup-orange: #EE7A2F;
+  --color-proveup-dark-orange: #EA3323;
+  --color-proveup-yellow: #FFB800;
+  --color-proveup-red: #E83F2F;
+  --color-proveup-gray-card: #333333;
+
+  /* Se quiser adicionar fontes ou espaçamentos extras, é aqui também */
+}
