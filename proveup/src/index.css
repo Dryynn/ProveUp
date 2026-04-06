@@ -1,7 +1,10 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @theme {
   /* Cores oficiais da ProveUP */
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
   --color-proveup-dark: #1A1A1A;
   --color-proveup-orange: #EE7A2F;
   --color-proveup-dark-orange: #EA3323;
@@ -10,4 +13,19 @@
   --color-proveup-gray-card: #333333;
 
   /* Se quiser adicionar fontes ou espaçamentos extras, é aqui também */
+}
+
+@layer base {
+  h1 {
+    @apply text-7xl font-black font-bold text-white ; /* Define o padrão do H1 */
+  }
+  
+  h2 {
+    @apply text-2xl font-bold text-gray-100 ; /* Define o padrão do H2 */
+  }
+
+  p {
+    @apply  font-light;
+  }
+
 }
