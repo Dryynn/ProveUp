@@ -16,6 +16,10 @@
 }
 
 @layer base {
+  body {
+    @apply bg-proveup-dark;
+  }
+
   h1 {
     @apply text-7xl font-black font-bold text-white ; /* Define o padrão do H1 */
   }
@@ -25,7 +29,7 @@
   }
 
   p {
-    @apply  font-light;
+    @apply  font-light text-white;
   }
 
 }

@@ -3,8 +3,12 @@ import logo from "../../assets/logo-proveup.svg";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+
 
 export function Header() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Seus links do menu, tirados direto da imagem_1.png
@@ -27,7 +31,7 @@ export function Header() {
 
         {/* Botão de Call-to-Action */}
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="primary" fullWidth>Login</Button>
+          <Button onClick={() => navigate("/login")} variant="primary" fullWidth>Login</Button>
           <Button variant="secondary" fullWidth>
             Inscreva-se
           </Button>
