@@ -1,16 +1,19 @@
-import { Header } from "./components/layout/Header"
-import { Hero } from "./components/sections/hero"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Login } from "./pages/Login";
+import { LandingPage } from "./pages/LandingPage";
+
+
 
 function App() {
   return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
 
-    <div className="min-h-screen bg-proveup-dark text-white font-sans overflow-x-hidden">
-      <main className="">
+        <Route path="/login" element={<Login />} />
 
-     <Header />
-     <Hero />
-      </main>
-    </div>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
