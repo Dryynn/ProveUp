@@ -22,7 +22,7 @@ export function Button({
     className,
 }: ButtonProps) {
     const classes = `
-        ${fullWidth ? "w-42" : "w-auto"}
+        ${fullWidth ? "w-42" : "w-full"}
         ${variantClasses[variant]}
         h-8 font-bold py-2 px-4 rounded-2xl font-poppins transition-shadow duration-300 justify-center items-center
         ${className}

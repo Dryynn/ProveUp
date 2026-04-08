@@ -32,4 +32,8 @@
     @apply  font-light text-white;
   }
 
+  label {
+    @apply text-white;
+  }
+
 }
