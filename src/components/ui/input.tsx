@@ -10,7 +10,7 @@ type InputProps = {
 }
 
 const variantClasses = {
-    primary: "text-white border-2 border-proveup-orange rounded-xl pl-4 py-2",
+    primary: "text-white border-2 border-proveup-orange rounded-xl pl-4 py-2 hover:placeholder:text-transparent transition-all duration-300",
     secondary: "",
     ghost: "",
 }
