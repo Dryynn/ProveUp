@@ -31,7 +31,7 @@ export function Input({
 
     return (
         <>
-            <label htmlFor={idDaProp} className="p-2">{children}</label>
+            <label htmlFor={idDaProp} className="">{children}</label>
             <input id={idDaProp} className={classes} placeholder={placeholder} />
         </>
     );

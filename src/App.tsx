@@ -4,7 +4,9 @@ import { LandingPage } from "./pages/LandingPage";
 import { RecoverPassword } from "./pages/RecoverPassword";
 import { ResetPassword } from "./pages/ResetPassword";
 import { Register } from "./pages/Register";
-
+import { PreQuestionnaire } from "./pages/PreQuestionnaire";
+import { QuestionnairePage } from "./pages/QuestionnairePage";
+import { QuestionnaireResult } from "./pages/QuestionnaireResult";
 
 
 function App() {
@@ -18,8 +20,9 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/register" element={<Register />} />
         
-        {/* Rota temporária para o pré-questionário */}
-        <Route path="/pre-questionnaire" element={<div className="text-white p-20 text-center">Tela de Pré-questionário em breve!</div>} />
+        <Route path="/pre-questionnaire" element={<PreQuestionnaire />} />
+        <Route path="/questionnaire" element={<QuestionnairePage />} />
+        <Route path="/result" element={<QuestionnaireResult />} />
 
       </Routes>
     </BrowserRouter>
