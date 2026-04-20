@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { type InputHTMLAttributes } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
     children: React.ReactNode;

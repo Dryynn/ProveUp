@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StepIndicator } from "../components/StepIndicator";
 import type { Step } from "../components/StepIndicator";
 import { LikertScale } from "../components/LikertScale";
