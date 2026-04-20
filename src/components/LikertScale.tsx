@@ -3,10 +3,7 @@ import { useState } from "react";
 type LikertScaleProps = {
   questionId: string;
   onChange?: (value: number) => void;
-<<<<<<< HEAD
   value?: number | null;
-=======
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 };
 
 const sizes = [
@@ -19,7 +16,6 @@ const sizes = [
   "w-12 h-12", // 6: Discordo
 ];
 
-<<<<<<< HEAD
 export function LikertScale({ questionId, onChange, value }: LikertScaleProps) {
   const [internalValue, setInternalValue] = useState<number | null>(null);
 
@@ -29,13 +25,6 @@ export function LikertScale({ questionId, onChange, value }: LikertScaleProps) {
     if (value === undefined) {
       setInternalValue(val);
     }
-=======
-export function LikertScale({ questionId, onChange }: LikertScaleProps) {
-  const [selectedValue, setSelectedValue] = useState<number | null>(null);
-
-  const handleClick = (val: number) => {
-    setSelectedValue(val);
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
     if (onChange) onChange(val);
   };
 

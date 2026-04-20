@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 import { useState } from "react";
-=======
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 import { useNavigate } from "react-router-dom";
 import escritorio from "../assets/Intersect.png";
 import logo from "../assets/logo-proveup.svg";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-<<<<<<< HEAD
 import { useToastStore } from "../store/useToastStore";
 
 export function RecoverPassword() {
@@ -37,11 +33,6 @@ export function RecoverPassword() {
             addToast("Verifique o email informado.", "error");
         }
     };
-=======
-
-export function RecoverPassword() {
-    const navigate = useNavigate();
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 
     return (
         <div className="min-h-screen bg-proveup-dark flex flex-row gap-20 items-center justify-center p-8 overflow-y-auto">
@@ -58,11 +49,7 @@ export function RecoverPassword() {
             <div className="flex flex-col justify-center max-w-md w-full">
                 <img src={logo} alt="logo prove up" className="w-48 mb-16" />
                 
-<<<<<<< HEAD
-                <h1 className="text-7xl text-white mb-6">
-=======
                 <h1 className="text-7xl font-black text-white mb-6">
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
                     Recuperar <span className="text-proveup-orange">senha</span>
                 </h1>
                 
@@ -71,24 +58,16 @@ export function RecoverPassword() {
                     Você receberá um link para redefinir sua senha.
                 </p>
 
-<<<<<<< HEAD
                 <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
-=======
-                <div className="flex flex-col gap-6">
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
                     <div className="flex flex-col">
                         <Input 
                             idDaProp="email" 
                             placeholder="Insira seu e-mail" 
-<<<<<<< HEAD
                             type="email"
                             fullWidth
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             error={error}
-=======
-                            fullWidth
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
                         >
                             E-mail
                         </Input>
@@ -98,10 +77,7 @@ export function RecoverPassword() {
                         <Button 
                             variant="primary" 
                             className="w-full h-12 text-lg"
-<<<<<<< HEAD
                             onClick={handleRecover}
-=======
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
                         >
                             Enviar link
                         </Button>
@@ -114,11 +90,7 @@ export function RecoverPassword() {
                             Voltar
                         </Button>
                     </div>
-<<<<<<< HEAD
                 </form>
-=======
-                </div>
->>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
             </div>
         </div>
     );
