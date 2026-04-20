@@ -10,7 +10,7 @@ type ButtonProps = {
 
 const variantClasses = {
     primary: "flex bg-linear-to-br from-proveup-orange to-proveup-dark-orange text-white hover:shadow-[0_0_18px_rgba(242,116,39,0.6)]",
-    secondary: "flex border-2 text-proveup-orange ",
+    secondary: "flex border-2 text-proveup-orange hover:bg-white/5 transition-colors",
     ghost: "",
 }
 

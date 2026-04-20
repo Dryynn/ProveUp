@@ -13,26 +13,26 @@ export function Register() {
         <div className="min-h-screen bg-proveup-dark flex flex-row gap-20 items-center justify-center p-4 overflow-y-auto">
             {/* Esquerda: Imagem */}
             <div className="hidden lg:block">
-                <img 
-                    src={escritorio} 
-                    alt="Ambiente de trabalho" 
-                    className="w-auto max-h-[90vh] rounded-[3rem] object-cover" 
+                <img
+                    src={escritorio}
+                    alt="Ambiente de trabalho"
+                    className="w-auto max-h-[90vh] rounded-[3rem] object-cover"
                 />
             </div>
 
             {/* Direita: Formulário */}
             <div className="flex flex-col justify-center max-w-md w-full py-4">
                 <img src={logo} alt="logo prove up" className="w-48 mb-4" />
-                
-                <h1 className="text-6xl font-black text-white mb-4 leading-tight">
+
+                <h1 className="text-6xl text-white mb-4 leading-tight">
                     Comece sua <br />
                     <span className="bg-linear-to-br from-proveup-orange to-proveup-dark-orange bg-clip-text text-transparent">
                         jornada!
                     </span>
                 </h1>
-                
+
                 <p className="text-white text-base font-light mb-4 leading-relaxed">
-                    Cadastre-se e tenha acesso a ferramentas que impulsionam sua evolução, 
+                    Cadastre-se e tenha acesso a ferramentas que impulsionam sua evolução,
                     organizam sua trajetória e destacam suas conquistas.
                 </p>
 
@@ -49,8 +49,8 @@ export function Register() {
                         </label>
                     </div>
 
-                    <Button 
-                        variant="primary" 
+                    <Button
+                        variant="primary"
                         className="w-full h-12 text-lg mt-2"
                         onClick={() => navigate("/pre-questionnaire")}
                     >
@@ -65,10 +65,10 @@ export function Register() {
 
                     <div className="flex flex-row gap-5 mb-6">
                         <div className="flex-1 flex h-12 bg-[#262626] rounded-2xl items-center justify-center cursor-pointer hover:bg-[#333] transition-colors">
-                            <img src={google_icon} alt="Google" className="w-6 h-6" />
+                            <img src={google_icon} alt="Google" />
                         </div>
                         <div className="flex-1 flex h-12 bg-[#262626] rounded-2xl items-center justify-center cursor-pointer hover:bg-[#333] transition-colors">
-                            <img src={facebook_icon} alt="Facebook" className="w-6 h-6" />
+                            <img src={facebook_icon} alt="Facebook" />
                         </div>
                     </div>
 
