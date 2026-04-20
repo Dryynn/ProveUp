@@ -7,13 +7,16 @@ import { Register } from "./pages/Register";
 import { PreQuestionnaire } from "./pages/PreQuestionnaire";
 import { QuestionnairePage } from "./pages/QuestionnairePage";
 import { QuestionnaireResult } from "./pages/QuestionnaireResult";
+import { ToastContainer } from "./components/ui/toast";
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
+    <>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
@@ -25,7 +28,8 @@ function App() {
         <Route path="/result" element={<QuestionnaireResult />} />
 
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </>
   )
 }
 

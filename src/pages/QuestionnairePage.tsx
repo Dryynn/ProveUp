@@ -4,6 +4,7 @@ import type { Step } from "../components/StepIndicator";
 import { LikertScale } from "../components/LikertScale";
 import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useToastStore } from "../store/useToastStore";
 
 const STEPS: Step[] = [
   {
@@ -44,12 +45,22 @@ const QUESTIONS_PART_2 = [
 
 export function QuestionnairePage() {
   const navigate = useNavigate();
+  const addToast = useToastStore((state) => state.addToast);
+  
   const [currentPart, setCurrentPart] = useState(1);
+  const [answers, setAnswers] = useState<Record<string, number>>({});
 
   const questions = currentPart === 1 ? QUESTIONS_PART_1 : QUESTIONS_PART_2;
   const progress = currentPart === 1 ? "w-1/2" : "w-full";
 
   const handleNext = () => {
+    const unanswered = questions.filter((q) => answers[q.id] === undefined);
+    
+    if (unanswered.length > 0) {
+      addToast("Por favor, responda todas as perguntas para prosseguir.", "error");
+      return;
+    }
+
     if (currentPart === 1) {
       setCurrentPart(2);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -103,7 +114,11 @@ export function QuestionnairePage() {
             <h2 className="text-sm lg:text-base font-medium text-white px-4">
               {q.text}
             </h2>
-            <LikertScale questionId={q.id} />
+            <LikertScale 
+                questionId={q.id} 
+                value={answers[q.id]}
+                onChange={(val) => setAnswers(prev => ({ ...prev, [q.id]: val }))}
+            />
           </div>
         ))}
       </div>
