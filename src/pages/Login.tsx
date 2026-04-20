@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 import escritorio from "../assets/Intersect.png";
 import google_icon from "../assets/Icons/google_icon.png"
 import logo from "../assets/logo-proveup.svg"
 import facebook_icon from "../assets/Icons/facebook_icon.png"
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import { useToastStore } from "../store/useToastStore";
 
@@ -42,6 +46,13 @@ export function Login() {
         }
     };
 
+=======
+import { Link } from "react-router-dom";
+
+
+
+export function Login() {
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
     return (
         <div className="min-h-screen bg-proveup-dark flex flex-row gap-20 items-center justify-center p-4 overflow-x-auto">
 
@@ -63,6 +74,7 @@ export function Login() {
                 <p className="pb-10 text-sm lg:text-base">
                     Entre na sua conta para acompanhar seu progresso, <br className="hidden lg:block" />explorar habilidades e continuar evoluindo com o ProveUP.
                 </p>
+<<<<<<< HEAD
                 <form className="flex flex-col gap-2 pb-3" onSubmit={(e) => e.preventDefault()}>
                     <Input 
                         idDaProp="Email" 
@@ -89,6 +101,14 @@ export function Login() {
                 </form>
                 <Link to="/recover-password" style={{ display: 'block', paddingBottom: '2rem' }} className="text-xs text-gray-200 hover:text-gray-400 transition-colors">Esqueci minha senha...</Link>
                 <Button className="mb-8 h-12" onClick={handleLogin}>Entrar</Button>
+=======
+                <div className="flex flex-col gap-2 pb-3">
+                    <Input idDaProp="Email" placeholder="Insira seu email" fullWidth>Email</Input>
+                    <Input idDaProp="Senha" placeholder="Insira sua senha" fullWidth>Senha</Input>
+                </div>
+                <Link to="/recover-password" style={{ display: 'block', paddingBottom: '2rem' }} className="text-xs text-gray-200 hover:text-gray-400 transition-colors">Esqueci minha senha...</Link>
+                <Button className="mb-8 h-12">Entrar</Button>
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 
                 <span className="flex flex-row items-center justify-center text-center gap-5 pb-8">
                     <hr className="w-full border-gray-700" />

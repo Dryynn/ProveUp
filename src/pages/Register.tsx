@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 import { useNavigate, Link } from "react-router-dom";
 import escritorio from "../assets/Intersect.png";
 import logo from "../assets/logo-proveup.svg";
@@ -6,6 +9,7 @@ import google_icon from "../assets/Icons/google_icon.png";
 import facebook_icon from "../assets/Icons/facebook_icon.png";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+<<<<<<< HEAD
 import { useToastStore } from "../store/useToastStore";
 
 export function Register() {
@@ -63,6 +67,11 @@ export function Register() {
             addToast("Revise os campos antes de continuar.", "error");
         }
     };
+=======
+
+export function Register() {
+    const navigate = useNavigate();
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
 
     return (
         <div className="min-h-screen bg-proveup-dark flex flex-row gap-20 items-center justify-center p-4 overflow-y-auto">
@@ -91,6 +100,7 @@ export function Register() {
                     organizam sua trajetória e destacam suas conquistas.
                 </p>
 
+<<<<<<< HEAD
                 <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
                     <Input 
                         idDaProp="nome" 
@@ -150,12 +160,29 @@ export function Register() {
                             </label>
                         </div>
                         {errors.termos && <span className="text-red-500 text-xs px-1">{errors.termos}</span>}
+=======
+                <div className="flex flex-col gap-3">
+                    <Input idDaProp="nome" placeholder="Insira seu nome completo" fullWidth>Nome completo</Input>
+                    <Input idDaProp="email" placeholder="Insira seu e-mail" fullWidth>E-mail</Input>
+                    <Input idDaProp="senha" placeholder="Insira sua senha" fullWidth>Senha</Input>
+                    <Input idDaProp="confirmar-senha" placeholder="Confirme sua nova senha" fullWidth>Confirmação de senha</Input>
+
+                    <div className="flex items-center gap-2 py-2">
+                        <input type="checkbox" id="terms" className="w-4 h-4 accent-proveup-orange bg-[#262626] border-none rounded" />
+                        <label htmlFor="terms" className="text-xs text-gray-400">
+                            Concordo com os <span className="text-white underline cursor-pointer">termos e política de privacidade</span>
+                        </label>
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
                     </div>
 
                     <Button
                         variant="primary"
                         className="w-full h-12 text-lg mt-2"
+<<<<<<< HEAD
                         onClick={handleRegister}
+=======
+                        onClick={() => navigate("/pre-questionnaire")}
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
                     >
                         Avançar
                     </Button>
@@ -178,7 +205,11 @@ export function Register() {
                     <p className="text-center text-white">
                         Já possui uma conta? <Link to="/login" className="font-medium hover:text-proveup-orange transition-colors">Faça seu login</Link>
                     </p>
+<<<<<<< HEAD
                 </form>
+=======
+                </div>
+>>>>>>> cab9461b75b7f04df8793dec543c56166fddde16
             </div>
         </div>
     );
