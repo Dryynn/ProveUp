@@ -6,6 +6,7 @@ import { Register } from "./pages/Register";
 import { PreQuestionnaire } from "./pages/PreQuestionnaire";
 import { QuestionnairePage } from "./pages/QuestionnairePage";
 import { QuestionnaireResult } from "./pages/QuestionnaireResult";
+import KnowledgeMap from "./pages/KnowledgeMap";
 import { ToastContainer } from "./components/ui/toast";
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/pre-questionnaire" element={<PreQuestionnaire />} />
         <Route path="/questionnaire" element={<QuestionnairePage />} />
         <Route path="/result" element={<QuestionnaireResult />} />
+        <Route path="/map" element={<KnowledgeMap />} />
 
       </Routes>
       </BrowserRouter>
