@@ -1,6 +1,5 @@
 import logo from "../assets/logo-proveup.svg";
 import escritorio from "../assets/Intersect.png";
-import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 export function QuestionnaireResult() {
@@ -30,7 +29,7 @@ export function QuestionnaireResult() {
             </div>
 
             {/* Orange Card (Hero Result) */}
-            <div className="w-full rounded-[34px] bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] p-10 lg:p-12 flex flex-col relative drop-shadow-[0px_0px_15px_rgba(255,102,0,0.45)]">
+            <div className="w-full rounded-[34px] bg-linear-to-r from-[#ee7a2f] to-[#ea3323] p-10 lg:p-12 flex flex-col relative drop-shadow-[0px_0px_15px_rgba(255,102,0,0.45)]">
                 <div className="flex flex-col gap-7">
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
@@ -69,8 +68,8 @@ export function QuestionnaireResult() {
                         </svg>
                     </span>
                     <div className="flex flex-col">
-                        <h3 className="text-xl font-normal bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">Veja abaixo o</h3>
-                        <h4 className="text-[32px] font-semibold bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent leading-tight">Porquê indicamos essa trilha:</h4>
+                        <h3 className="text-xl font-normal bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">Veja abaixo o</h3>
+                        <h4 className="text-[32px] font-semibold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent leading-tight">Porquê indicamos essa trilha:</h4>
                     </div>
                 </div>
                 <ul className="flex flex-col gap-5">
@@ -101,8 +100,8 @@ export function QuestionnaireResult() {
                         </svg>
                     </span>
                     <div className="flex flex-col">
-                        <h3 className="text-xl font-normal bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">Veja abaixo</h3>
-                        <h4 className="text-[32px] font-semibold bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent leading-tight">O que você vai desenvolver:</h4>
+                        <h3 className="text-xl font-normal bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">Veja abaixo</h3>
+                        <h4 className="text-[32px] font-semibold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent leading-tight">O que você vai desenvolver:</h4>
                     </div>
                 </div>
                 <ul className="flex flex-col gap-5">
@@ -134,15 +133,15 @@ export function QuestionnaireResult() {
                         {area}
                     </span>
                 ))}
-                <button className="px-[39px] py-[4px] bg-transparent border border-[#ee7a2f] rounded-[14px] text-lg font-semibold bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent hover:opacity-80 transition-opacity">Editar áreas</button>
+                <button className="px-[39px] py-[4px] bg-transparent border border-[#ee7a2f] rounded-[14px] text-lg font-semibold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent hover:opacity-80 transition-opacity">Editar áreas</button>
             </div>
         </section>
 
         {/* Actions */}
         <section className="flex flex-col sm:flex-row justify-center gap-[89px] mt-8">
-            <button className="px-[75px] py-[4px] h-[50px] rounded-[14px] bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] text-lg font-semibold text-white shadow-lg hover:opacity-90 transition-opacity" onClick={() => navigate("/questionnaire")}>Refazer questionário</button>
-            <button className="px-[39px] py-[4px] h-[50px] w-full sm:w-[339px] border border-[#ee7a2f] rounded-[14px] text-lg font-semibold bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent hover:bg-white/5 transition-all" onClick={() => navigate("/map")}>Seguir com essa trilha</button>
-            <button className="px-[75px] py-[4px] h-[50px] w-full sm:w-[339px] rounded-[14px] bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] text-lg font-semibold text-white shadow-lg hover:opacity-90 transition-opacity">Explorar outras trilhas</button>
+            <button className="px-[75px] py-[4px] h-[50px] rounded-[14px] bg-linear-to-r from-[#ee7a2f] to-[#ea3323] text-lg font-semibold text-white shadow-lg hover:opacity-90 transition-opacity" onClick={() => navigate("/questionnaire")}>Refazer questionário</button>
+            <button className="px-[39px] py-[4px] h-[50px] w-full sm:w-[339px] border border-[#ee7a2f] rounded-[14px] text-lg font-semibold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent hover:bg-white/5 transition-all" onClick={() => navigate("/map")}>Seguir com essa trilha</button>
+            <button className="px-[75px] py-[4px] h-[50px] w-full sm:w-[339px] rounded-[14px] bg-linear-to-r from-[#ee7a2f] to-[#ea3323] text-lg font-semibold text-white shadow-lg hover:opacity-90 transition-opacity">Explorar outras trilhas</button>
         </section>
 
         {/* Extra Tracks Section */}
@@ -170,12 +169,12 @@ export function QuestionnaireResult() {
                         </div>
                         
                         <div className="text-center">
-                            <h4 className="text-[32px] font-semibold bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent leading-tight mb-7">{track.title}</h4>
+                            <h4 className="text-[32px] font-semibold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent leading-tight mb-7">{track.title}</h4>
                             <p className="text-xl font-normal text-white leading-normal">
                                 {track.text}
                             </p>
                         </div>
-                        <button className="px-[75px] py-[4px] h-[35px] rounded-[14px] bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] text-lg font-semibold text-white mt-auto">Ver mais</button>
+                        <button className="px-[75px] py-[4px] h-[35px] rounded-[14px] bg-linear-to-r from-[#ee7a2f] to-[#ea3323] text-lg font-semibold text-white mt-auto">Ver mais</button>
                     </div>
                 ))}
             </div>

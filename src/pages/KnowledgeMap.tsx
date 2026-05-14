@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Home, Compass, LayoutDashboard, Clock, Trophy, BookOpen, Settings, LogOut } from 'lucide-react';
 import logo from '../assets/logo-proveup.svg'; // Assuming this exists from previous files
 
@@ -110,7 +110,7 @@ const Hexagon = ({ title, level, isSelected, onClick }: { title: string, level: 
         clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
       }}
     >
-      <div className={`absolute inset-0 ${getLevelColor()} flex flex-col items-center justify-center p-4 text-center border-1 border-[#161616]`}>
+      <div className={`absolute inset-0 ${getLevelColor()} flex flex-col items-center justify-center p-4 text-center border border-[#161616]`}>
          <span className="font-semibold text-sm lg:text-lg">{title}</span>
       </div>
     </div>
@@ -177,7 +177,7 @@ export default function KnowledgeMap() {
     <div className="min-h-screen bg-[#161616] text-white flex font-sans overflow-hidden">
       
       {/* Sidebar Esquerda (Navegação) */}
-      <aside className="w-[264px] border-r border-[#262626] flex-shrink-0 flex flex-col items-center py-6 h-screen sticky top-0 hidden lg:flex">
+      <aside className="w-[264px] border-r border-[#262626] shrink-0 flex flex-col items-center py-6 h-screen sticky top-0 lg:flex">
         <div className="w-full px-6 mb-8 flex justify-center">
             <img src={logo} alt="ProveUP" className="h-10" />
         </div>
@@ -186,7 +186,7 @@ export default function KnowledgeMap() {
           <a href="#" className="flex items-center gap-3 px-4 py-3 text-sm text-white/70 hover:text-white hover:bg-[#262626] rounded-xl transition-colors">
             <Home size={20} /> Página Inicial
           </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-sm text-white bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] rounded-xl font-medium shadow-lg">
+          <a href="#" className="flex items-center gap-3 px-4 py-3 text-sm text-white bg-linear-to-r from-[#ee7a2f] to-[#ea3323] rounded-xl font-medium shadow-lg">
             <Compass size={20} /> Mapa de Habilidades
           </a>
           <a href="#" className="flex items-center gap-3 px-4 py-3 text-sm text-white/70 hover:text-white hover:bg-[#262626] rounded-xl transition-colors">
@@ -233,7 +233,7 @@ export default function KnowledgeMap() {
             <div className="flex gap-4">
                {/* Legenda */}
                <div className="flex gap-6 items-center text-xs text-white/60">
-                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#EE7A2F]"></span> Explorando</div>
+                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-proveup-orange"></span> Explorando</div>
                  <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#E1A902]"></span> Estudando</div>
                  <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#15A12F]"></span> Consolidando</div>
                </div>
@@ -269,7 +269,7 @@ export default function KnowledgeMap() {
 
       {/* Painel Lateral Direito (Drawer de Curadoria) */}
       <aside className={`
-        w-[400px] border-l border-[#262626] bg-[#1a1a1a] flex-shrink-0 flex flex-col h-screen overflow-y-auto transition-all duration-300
+        w-[400px] border-l border-[#262626] bg-[#1a1a1a] shrink-0 flex flex-col h-screen overflow-y-auto transition-all duration-300
         ${selectedNode ? 'translate-x-0' : 'translate-x-full lg:translate-x-0 lg:w-[400px]'}
         absolute right-0 lg:static z-50
       `}>
@@ -285,14 +285,14 @@ export default function KnowledgeMap() {
                 ← Voltar para o Mapa
               </button>
               <h2 className="text-sm uppercase tracking-widest text-white/50 mb-2">Guia de Estudos</h2>
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">
+              <h3 className="text-3xl font-bold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">
                 {selectedNode.title}
               </h3>
               
               <div className="mt-6 flex items-center gap-4">
                  <div className="flex-1 bg-[#262626] h-2 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-[#ee7a2f] to-[#ea3323] transition-all duration-500"
+                      className="h-full bg-linear-to-r from-[#ee7a2f] to-[#ea3323] transition-all duration-500"
                       style={{ width: `${calculateProgress(selectedNode)}%` }}
                     />
                  </div>
