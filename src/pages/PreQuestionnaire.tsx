@@ -2,6 +2,7 @@ import escritorio from "../assets/Intersect.png";
 import logo from "../assets/logo-proveup.svg";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+import { Dropdown } from "../components/ui/dropdown";
 import { useNavigate } from "react-router-dom";
 
 export function PreQuestionnaire() {
@@ -29,14 +30,9 @@ export function PreQuestionnaire() {
         </p>
 
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col">
-            <Input
-              idDaProp="curso"
-              placeholder="Insira sua formação acadêmica"
-              fullWidth
-            >
-              Curso ou formação atual
-            </Input>
+          <div className="flex flex-col gap-2">
+            <span className="text-white text-md">Curso ou formação atual: </span>
+            <Dropdown />
           </div>
 
           <p className="text-xs text-gray-400">
@@ -55,11 +51,12 @@ export function PreQuestionnaire() {
               <hr className="w-full border-gray-700" />
             </div>
 
-            <Button className="h-12 w-full">
+            <Button className="h-12 w-full" onClick={() => navigate("/map")}>
               Fazer depois
             </Button>
 
-            <Button variant="secondary" className="h-12 w-full bg-transparent border-proveup-orange">
+            <Button variant="secondary" className="h-12 w-full bg-transparent border-proveup-orange"
+            onClick={() => navigate("/map")}>
               Já tenho uma trilha
             </Button>
           </div>

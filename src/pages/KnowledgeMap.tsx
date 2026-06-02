@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Home, Compass, LayoutDashboard, Clock, Trophy, BookOpen, Settings, LogOut } from 'lucide-react';
+import { Home, Compass, LayoutDashboard, Clock, Trophy, BookOpen, Settings, LogOut, Plus } from 'lucide-react';
 import logo from '../assets/logo-proveup.svg'; // Assuming this exists from previous files
 
 // --- Tipos de Dados ---
@@ -98,7 +98,7 @@ const Hexagon = ({ title, level, isSelected, onClick }: { title: string, level: 
   };
 
   return (
-    <div 
+    <div
       onClick={level !== 'locked' ? onClick : undefined}
       className={`
         relative flex items-center justify-center cursor-pointer transition-transform duration-300
@@ -107,11 +107,37 @@ const Hexagon = ({ title, level, isSelected, onClick }: { title: string, level: 
         ${isSelected ? 'drop-shadow-[0_0_15px_rgba(238,122,47,0.5)] z-10' : ''}
       `}
       style={{
-        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+        WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'115.47\' viewBox=\'0 0 100 115.47\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M 42 4.6 Q 50 0 58 4.6 L 92 24.25 Q 100 28.87 100 38.1 L 100 77.4 Q 100 86.6 92 91.2 L 58 110.8 Q 50 115.47 42 110.8 L 8 91.2 Q 0 86.6 0 77.4 L 0 38.1 Q 0 28.87 8 24.25 Z\' fill=\'black\'/%3E%3C/svg%3E")',
+        WebkitMaskSize: '100% 100%',
+        WebkitMaskRepeat: 'no-repeat',
+        maskImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'115.47\' viewBox=\'0 0 100 115.47\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M 42 4.6 Q 50 0 58 4.6 L 92 24.25 Q 100 28.87 100 38.1 L 100 77.4 Q 100 86.6 92 91.2 L 58 110.8 Q 50 115.47 42 110.8 L 8 91.2 Q 0 86.6 0 77.4 L 0 38.1 Q 0 28.87 8 24.25 Z\' fill=\'black\'/%3E%3C/svg%3E")',
+        maskSize: '100% 100%',
+        maskRepeat: 'no-repeat',
       }}
     >
-      <div className={`absolute inset-0 ${getLevelColor()} flex flex-col items-center justify-center p-4 text-center border border-[#161616]`}>
-         <span className="font-semibold text-sm lg:text-lg">{title}</span>
+      <div className={`absolute inset-0 ${getLevelColor()} flex flex-col items-center justify-center p-4 text-center`}>
+        <span className="font-semibold text-sm lg:text-lg">{title}</span>
+      </div>
+    </div>
+  );
+};
+
+// Placeholder Hexágono com símbolo de mais (+)
+const PlaceholderHexagon = () => {
+  return (
+    <div
+      className="relative flex items-center justify-center w-32 h-36 lg:w-40 lg:h-44 opacity-40 hover:opacity-60 transition-opacity duration-300 cursor-pointer"
+      style={{
+        WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'115.47\' viewBox=\'0 0 100 115.47\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M 42 4.6 Q 50 0 58 4.6 L 92 24.25 Q 100 28.87 100 38.1 L 100 77.4 Q 100 86.6 92 91.2 L 58 110.8 Q 50 115.47 42 110.8 L 8 91.2 Q 0 86.6 0 77.4 L 0 38.1 Q 0 28.87 8 24.25 Z\' fill=\'black\'/%3E%3C/svg%3E")',
+        WebkitMaskSize: '100% 100%',
+        WebkitMaskRepeat: 'no-repeat',
+        maskImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'115.47\' viewBox=\'0 0 100 115.47\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M 42 4.6 Q 50 0 58 4.6 L 92 24.25 Q 100 28.87 100 38.1 L 100 77.4 Q 100 86.6 92 91.2 L 58 110.8 Q 50 115.47 42 110.8 L 8 91.2 Q 0 86.6 0 77.4 L 0 38.1 Q 0 28.87 8 24.25 Z\' fill=\'black\'/%3E%3C/svg%3E")',
+        maskSize: '100% 100%',
+        maskRepeat: 'no-repeat',
+      }}
+    >
+      <div className="absolute inset-0 bg-[#262626] border border-white/5 flex items-center justify-center">
+        <Plus size={24} className="text-white/40" />
       </div>
     </div>
   );
@@ -129,7 +155,7 @@ export default function KnowledgeMap() {
   const toggleMission = (nodeId: string, sessionId: string, missionId: string) => {
     setNodes(prev => {
       const newNodes = { ...prev };
-      
+
       const node = {
         ...newNodes[nodeId],
         sessions: newNodes[nodeId].sessions.map(session => {
@@ -149,7 +175,7 @@ export default function KnowledgeMap() {
       // Lógica de mudança de nível baseada no progresso (Simples)
       const totalMissions = node.sessions.reduce((acc, s) => acc + s.missions.length, 0);
       const completedMissions = node.sessions.reduce((acc, s) => acc + s.missions.filter(m => m.completed).length, 0);
-      
+
       if (completedMissions === 0) node.level = 'explorando';
       else if (completedMissions < totalMissions) node.level = 'estudando';
       else node.level = 'consolidando';
@@ -175,11 +201,11 @@ export default function KnowledgeMap() {
 
   return (
     <div className="min-h-screen bg-[#161616] text-white flex font-sans overflow-hidden">
-      
+
       {/* Sidebar Esquerda (Navegação) */}
       <aside className="w-[264px] border-r border-[#262626] shrink-0 flex flex-col items-center py-6 h-screen sticky top-0 lg:flex">
         <div className="w-full px-6 mb-8 flex justify-center">
-            <img src={logo} alt="ProveUP" className="h-10" />
+          <img src={logo} alt="ProveUP" className="h-10" />
         </div>
 
         <nav className="flex flex-col gap-3 w-full px-4">
@@ -215,7 +241,7 @@ export default function KnowledgeMap() {
 
       {/* Conteúdo Central */}
       <main className="flex-1 flex flex-col relative overflow-y-auto">
-        
+
         {/* Header / Trilha Atual */}
         <header className="p-8 pb-0">
           <div className="bg-[#262626] rounded-2xl p-6 flex items-center justify-between">
@@ -229,41 +255,74 @@ export default function KnowledgeMap() {
                 <p className="text-white/50 text-xs mt-1">8 áreas em desenvolvimento</p>
               </div>
             </div>
-            
+
             <div className="flex gap-4">
-               {/* Legenda */}
-               <div className="flex gap-6 items-center text-xs text-white/60">
-                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-proveup-orange"></span> Explorando</div>
-                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#E1A902]"></span> Estudando</div>
-                 <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#15A12F]"></span> Consolidando</div>
-               </div>
+              {/* Legenda */}
+              <div className="flex gap-6 items-center text-xs text-white/60">
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-proveup-orange"></span> Explorando</div>
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#E1A902]"></span> Estudando</div>
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#15A12F]"></span> Consolidando</div>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Mapa (Colmeia) */}
         <div className="flex-1 flex items-center justify-center relative p-8">
-            <p className="absolute top-4 left-8 text-white/40 text-sm">Clique em uma área para ver o guia de estudos.</p>
-            
-            {/* Grid Simples (Mock visual da colmeia) */}
-            <div className="relative w-[500px] h-[500px]">
-                {/* Ajustando posições baseadas numa grid em colmeia simples */}
-                {/* Coluna 1 (Meio) */}
-                <div className="absolute top-[30%] left-[17%]">
-                    <Hexagon {...nodes.html} isSelected={selectedNodeId === 'html'} onClick={() => setSelectedNodeId('html')} />
-                </div>
-                <div className="absolute top-[66%] left-[17%]">
-                    <Hexagon {...nodes.js} isSelected={selectedNodeId === 'js'} onClick={() => setSelectedNodeId('js')} />
-                </div>
+          <p className="absolute top-4 left-8 text-white/40 text-sm">Clique em uma área para ver o guia de estudos.</p>
 
-                {/* Coluna 2 (Baixo/Cima) */}
-                <div className="absolute top-[12.5%] left-[50%]">
-                    <Hexagon {...nodes.ui} isSelected={selectedNodeId === 'ui'} onClick={() => setSelectedNodeId('ui')} />
+          {/* Grid Simples (Mock visual da colmeia) */}
+          <div className="relative w-[34rem] h-[30rem] lg:w-[43rem] lg:h-[37rem] mx-auto [--hex-w:8rem] [--hex-h:9rem] [--gap-x:0.25rem] [--gap-y:0.25rem] lg:[--hex-w:10rem] lg:[--hex-h:11rem] lg:[--gap-x:0.35rem] lg:[--gap-y:0.35rem]">
+            {[
+              // Row 0
+              { col: 0, row: 0, type: 'placeholder' },
+              { col: 1, row: 0, type: 'node', nodeKey: 'ui' },
+              { col: 2, row: 0, type: 'node', nodeKey: 'ux' },
+              { col: 3, row: 0, type: 'node', nodeKey: 'css' },
+
+              // Row 1
+              { col: 0.5, row: 1, type: 'node', nodeKey: 'html' },
+              { col: 1.5, row: 1, type: 'node', nodeKey: 'js' },
+              { col: 2.5, row: 1, type: 'placeholder' },
+
+              // Row 2
+              { col: 0, row: 2, type: 'placeholder' },
+              { col: 1, row: 2, type: 'static', title: 'Ferramentas', level: 'locked' },
+              { col: 2, row: 2, type: 'static', title: 'Criatividade', level: 'locked' },
+
+              // Row 3
+              { col: 0.5, row: 3, type: 'static', title: 'FrameWorks', level: 'locked' },
+              { col: 1.5, row: 3, type: 'placeholder' },
+            ].map((item, idx) => {
+              const style = {
+                left: `calc(${item.col} * (var(--hex-w) + var(--gap-x)))`,
+                top: `calc(${item.row} * (var(--hex-h) * 0.75 + var(--gap-y)))`,
+              };
+
+              return (
+                <div key={idx} className="absolute" style={style}>
+                  {item.type === 'node' && item.nodeKey && (
+                    <Hexagon
+                      {...nodes[item.nodeKey]}
+                      isSelected={selectedNodeId === item.nodeKey}
+                      onClick={() => setSelectedNodeId(item.nodeKey!)}
+                    />
+                  )}
+                  {item.type === 'static' && (
+                    <Hexagon
+                      title={item.title!}
+                      level={item.level as SkillLevel}
+                      isSelected={false}
+                      onClick={() => {}}
+                    />
+                  )}
+                  {item.type === 'placeholder' && (
+                    <PlaceholderHexagon />
+                  )}
                 </div>
-                <div className="absolute top-[48.5%] left-[50%]">
-                    <Hexagon {...nodes.css} isSelected={selectedNodeId === 'css'} onClick={() => setSelectedNodeId('css')} />
-                </div>
-            </div>
+              );
+            })}
+          </div>
         </div>
       </main>
 
@@ -275,10 +334,10 @@ export default function KnowledgeMap() {
       `}>
         {selectedNode ? (
           <div className="p-8 flex flex-col h-full">
-            
+
             {/* Cabeçalho do Painel */}
             <div className="mb-8">
-              <button 
+              <button
                 className="text-white/50 hover:text-white mb-4 lg:hidden"
                 onClick={() => setSelectedNodeId(null)}
               >
@@ -288,64 +347,64 @@ export default function KnowledgeMap() {
               <h3 className="text-3xl font-bold bg-linear-to-r from-[#ee7a2f] to-[#ea3323] bg-clip-text text-transparent">
                 {selectedNode.title}
               </h3>
-              
+
               <div className="mt-6 flex items-center gap-4">
-                 <div className="flex-1 bg-[#262626] h-2 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-linear-to-r from-[#ee7a2f] to-[#ea3323] transition-all duration-500"
-                      style={{ width: `${calculateProgress(selectedNode)}%` }}
-                    />
-                 </div>
-                 <span className="text-sm font-semibold">{calculateProgress(selectedNode)}%</span>
+                <div className="flex-1 bg-[#262626] h-2 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-linear-to-r from-[#ee7a2f] to-[#ea3323] transition-all duration-500"
+                    style={{ width: `${calculateProgress(selectedNode)}%` }}
+                  />
+                </div>
+                <span className="text-sm font-semibold">{calculateProgress(selectedNode)}%</span>
               </div>
             </div>
 
             {/* Sessões e Missões */}
             {selectedNode.sessions.length > 0 ? (
-                <div className="flex flex-col gap-8 flex-1">
+              <div className="flex flex-col gap-8 flex-1">
                 {selectedNode.sessions.map((session) => (
-                    <div key={session.id} className="flex flex-col gap-4">
+                  <div key={session.id} className="flex flex-col gap-4">
                     <h4 className="text-lg font-medium border-b border-white/10 pb-2">{session.title}</h4>
-                    
+
                     <ul className="flex flex-col gap-3">
-                        {session.missions.map((mission) => (
-                        <li 
-                            key={mission.id}
-                            className={`
+                      {session.missions.map((mission) => (
+                        <li
+                          key={mission.id}
+                          className={`
                             flex items-start gap-4 p-4 rounded-xl border transition-colors
                             ${mission.completed ? 'bg-[#15a12f]/10 border-[#15a12f]/30' : 'bg-[#262626] border-transparent hover:border-white/20'}
                             `}
                         >
-                            <button 
-                                onClick={() => toggleMission(selectedNode.id, session.id, mission.id)}
-                                className={`
+                          <button
+                            onClick={() => toggleMission(selectedNode.id, session.id, mission.id)}
+                            className={`
                                 shrink-0 w-6 h-6 rounded flex items-center justify-center border mt-0.5 transition-colors
                                 ${mission.completed ? 'bg-[#15a12f] border-[#15a12f]' : 'border-white/30 hover:border-white/60'}
                                 `}
-                            >
-                                {mission.completed && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
-                            </button>
-                            
-                            <div className="flex flex-col flex-1">
-                                <a href={mission.url} target="_blank" rel="noopener noreferrer" className="text-sm hover:underline hover:text-[#ee7a2f] transition-colors leading-tight mb-1">
-                                    {mission.title}
-                                </a>
-                                <span className="text-[10px] uppercase text-white/40 font-semibold tracking-wider">
-                                    {mission.type === 'video' ? '📺 Vídeo' : mission.type === 'leitura' ? '📄 Leitura' : '💻 Prática'}
-                                </span>
-                            </div>
+                          >
+                            {mission.completed && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                          </button>
+
+                          <div className="flex flex-col flex-1">
+                            <a href={mission.url} target="_blank" rel="noopener noreferrer" className="text-sm hover:underline hover:text-[#ee7a2f] transition-colors leading-tight mb-1">
+                              {mission.title}
+                            </a>
+                            <span className="text-[10px] uppercase text-white/40 font-semibold tracking-wider">
+                              {mission.type === 'video' ? '📺 Vídeo' : mission.type === 'leitura' ? '📄 Leitura' : '💻 Prática'}
+                            </span>
+                          </div>
                         </li>
-                        ))}
+                      ))}
                     </ul>
-                    </div>
+                  </div>
                 ))}
-                </div>
+              </div>
             ) : (
-                <div className="flex-1 flex flex-col items-center justify-center text-center text-white/40">
-                    <Compass size={48} className="mb-4 opacity-20" />
-                    <p>Esta área ainda está bloqueada ou sem conteúdo.</p>
-                    <p className="text-sm mt-2">Complete as áreas anteriores para desbloquear.</p>
-                </div>
+              <div className="flex-1 flex flex-col items-center justify-center text-center text-white/40">
+                <Compass size={48} className="mb-4 opacity-20" />
+                <p>Esta área ainda está bloqueada ou sem conteúdo.</p>
+                <p className="text-sm mt-2">Complete as áreas anteriores para desbloquear.</p>
+              </div>
             )}
 
           </div>

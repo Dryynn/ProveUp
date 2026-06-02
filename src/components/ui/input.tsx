@@ -9,7 +9,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 }
 
 const variantClasses = {
-    primary: "text-white bg-transparent border-2 border-proveup-orange rounded-xl px-4 py-2 hover:placeholder:text-transparent transition-all duration-300 focus:outline-hidden",
+    primary: "text-white bg-transparent border-2 border-proveup-orange rounded-xl px-4 py-2 placeholder-white/70 hover:placeholder-transparent placeholder:transition-all placeholder:duration-250 focus:outline-hidden",
     secondary: "",
     ghost: "",
 }
