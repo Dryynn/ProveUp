@@ -1,7 +1,6 @@
 import escritorio from "../assets/Intersect.png";
 import logo from "../assets/logo-proveup.svg";
 import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
 import { Dropdown } from "../components/ui/dropdown";
 import { useNavigate } from "react-router-dom";
 
