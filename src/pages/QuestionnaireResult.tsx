@@ -35,7 +35,7 @@ export function QuestionnaireResult() {
                             </span>
                             <div className="flex flex-col">
                                 <span className="text-base sm:text-lg lg:text-xl font-normal text-white/90">A trilha recomendada para você é:</span>
-                                <h1 className="text-3xl sm:text-4xl lg:text-[50px] font-bold leading-tight">Design & Criatividade</h1>
+                                <h1 className="text-3xl sm:text-4xl lg:text-[50px] font-bold leading-tight">Desenvolvimento Front-end</h1>
                             </div>
                         </div>
                         
@@ -46,7 +46,7 @@ export function QuestionnaireResult() {
                     </div>
                     
                     <p className="text-base sm:text-lg lg:text-xl font-normal leading-normal text-white">
-                        A Trilha de Design e Criatividade foi desenvolvida para usuários que demonstram afinidade com expressão visual, pensamento criativo e construção estética. Ela reúne conhecimentos essenciais para quem deseja ingressar ou evoluir em áreas relacionadas à criação, seja no design digital, gráfico, de interfaces ou de marcas.
+                        A Trilha de Desenvolvimento Front-end foi desenvolvida para usuários que demonstram interesse na construção visual e lógica de páginas web. Ela reúne conhecimentos essenciais para quem deseja ingressar ou evoluir na criação de interfaces interativas, traduzindo design em código e garantindo a melhor experiência para o usuário.
                     </p>
                 </div>
             </div>
@@ -67,11 +67,11 @@ export function QuestionnaireResult() {
                 </div>
                 <ul className="flex flex-col gap-5">
                     {[
-                        "Interesse em composição visual",
-                        "Afinidade com atividades criativas",
-                        "Facilidade em gerar ideias",
-                        "Compreensão de elementos e estética",
-                        "Interesse em design digital",
+                        "Interesse em construção visual",
+                        "Afinidade com lógica de programação",
+                        "Facilidade em criar interfaces",
+                        "Compreensão de experiência do usuário",
+                        "Interesse em tecnologias web",
                         "Preferência em aprendizado prático"
                     ].map((item, id) => (
                         <li key={id} className="flex items-center gap-5 text-xl font-normal text-white">
@@ -97,11 +97,11 @@ export function QuestionnaireResult() {
                 </div>
                 <ul className="flex flex-col gap-5">
                     {[
-                        "Criatividade aplicada",
-                        "Domínio das cores e tipografia",
-                        "Layout e composição visual",
+                        "Lógica de programação",
+                        "Domínio de HTML, CSS e JS",
+                        "Interfaces responsivas",
                         "Fundamentos de UI/UX",
-                        "Uso de ferramentas como Figma/Adobe",
+                        "Uso de frameworks web",
                         "Construção de portfólio"
                     ].map((item, id) => (
                         <li key={id} className="flex items-center gap-5 text-xl font-normal text-white">
@@ -119,12 +119,12 @@ export function QuestionnaireResult() {
         <section className="flex flex-col gap-6 mt-7">
             <h4 className="text-2xl font-semibold text-white">Áreas relacionadas:</h4>
             <div className="flex flex-wrap gap-12 items-center">
-                {["Criatividade", "Cores", "Tipografia", "Composição", "UI", "UX", "Ferramentas", "Portfólio"].map(area => (
+                {["Front-end", "Programação", "Web", "Interfaces", "UI", "UX", "Frameworks", "Portfólio"].map(area => (
                     <span key={area} className="px-[22px] py-[5px] bg-[#262626] shadow-[8px_8px_15px_rgba(0,0,0,0.15)] rounded-[40px] text-xl font-normal text-white cursor-default">
                         {area}
                     </span>
                 ))}
-                <Button variant="secondary" className="px-[39px] h-auto py-[4px] rounded-[14px]! text-lg ">Editar áreas</Button>
+                {/* <Button variant="secondary" className="px-[39px] h-auto py-[4px] rounded-[14px]! text-lg ">Editar áreas</Button> */}
             </div>
         </section>
 
@@ -140,7 +140,7 @@ export function QuestionnaireResult() {
             <h3 className="text-2xl font-semibold mb-10 text-white">Trilhas que você também pode gostar:</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
                 {[
-                    { title: "Desenvolvimento front-end", affinity: 80, text: "Seu resultado mostra interesse em construção visual e lógica de páginas. A Trilha de Desenvolvimento Front-end se encaixa perfeitamente nos seus objetivos." },
+                    { title: "Desenvolvimento mobile", affinity: 80, text: "Seu resultado aponta para um interesse em criar soluções portáteis e interativas. A Trilha de Desenvolvimento Mobile é ideal para você construir aplicativos de sucesso." },
                     { title: "Desenvolvimento back-end", affinity: 65, text: "As suas respostas indicam forte inclinação para resolver problemas complexos e construir a estrutura interna das aplicações. Por isso, sugerimos a Trilha de Back-end." },
                     { title: "Criação de banco de dados", affinity: 50, text: "Com base nas suas respostas, identificamos afinidade com organização, análise e estruturação de informações. A Trilha de Banco de Dados é a adequada para você." }
                 ].map((track, i) => (
