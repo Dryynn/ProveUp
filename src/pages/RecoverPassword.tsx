@@ -5,20 +5,22 @@ import logo from "../assets/logo-proveup.svg";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useToastStore } from "../store/useToastStore";
+import { apiRequest } from "../services/api";
 
 export function RecoverPassword() {
     const navigate = useNavigate();
     const addToast = useToastStore((state) => state.addToast);
     
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | undefined>(undefined);
 
-    const handleRecover = (e: React.MouseEvent) => {
+    const handleRecover = async (e: React.MouseEvent) => {
         e.preventDefault();
         
         let newError: string | undefined = undefined;
 
-        if (!email) {
+        if (!email.trim()) {
             newError = "O email é obrigatório.";
         } else if (!/\S+@\S+\.\S+/.test(email)) {
             newError = "Formato de email inválido.";
@@ -26,11 +28,24 @@ export function RecoverPassword() {
 
         setError(newError);
 
-        if (!newError) {
-            addToast("Link de recuperação enviado (simulação)!", "success");
-            navigate("/login");
-        } else {
+        if (newError) {
             addToast("Verifique o email informado.", "error");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const data = await apiRequest<{ message: string; devToken?: string }>('/auth/recover-password', {
+                method: 'POST',
+                data: { email: email.trim() },
+            });
+
+            addToast(data.message || "Código de recuperação gerado!", "success");
+            navigate(`/reset-password?email=${encodeURIComponent(email.trim())}`);
+        } catch (err: any) {
+            addToast(err.message || "Erro ao solicitar recuperação de senha.", "error");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -77,9 +92,10 @@ export function RecoverPassword() {
                         <Button 
                             variant="primary" 
                             className="w-full h-12 text-lg"
+                            disabled={loading}
                             onClick={handleRecover}
                         >
-                            Enviar link
+                            {loading ? "Enviando..." : "Enviar link"}
                         </Button>
                         
                         <Button 

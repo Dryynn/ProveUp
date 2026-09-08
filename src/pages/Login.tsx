@@ -7,20 +7,24 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { useToastStore } from "../store/useToastStore";
+import { useAuthStore } from "../store/useAuthStore";
+import { apiRequest } from "../services/api";
 
 export function Login() {
     const navigate = useNavigate();
     const addToast = useToastStore((state) => state.addToast);
+    const setAuth = useAuthStore((state) => state.setAuth);
     
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<{ email?: string; senha?: string }>({});
 
-    const handleLogin = (e: React.MouseEvent) => {
+    const handleLogin = async (e: React.MouseEvent) => {
         e.preventDefault();
         const newErrors: { email?: string; senha?: string } = {};
 
-        if (!email) {
+        if (!email.trim()) {
             newErrors.email = "O email é obrigatório.";
         } else if (!/\S+@\S+\.\S+/.test(email)) {
             newErrors.email = "Formato de email inválido.";
@@ -34,11 +38,28 @@ export function Login() {
 
         setErrors(newErrors);
 
-        if (Object.keys(newErrors).length === 0) {
+        if (Object.keys(newErrors).length > 0) {
+            addToast("Por favor, corrija os erros do formulário.", "error");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const data = await apiRequest<{ user: any; token: string }>('/auth/login', {
+                method: 'POST',
+                data: {
+                    email: email.trim(),
+                    password: senha,
+                },
+            });
+
+            setAuth(data.user, data.token);
             addToast("Login efetuado com sucesso!", "success");
             navigate("/pre-questionnaire");
-        } else {
-            addToast("Por favor, corrija os erros do formulário.", "error");
+        } catch (err: any) {
+            addToast(err.message || "Erro ao efetuar login.", "error");
+        } finally {
+            setLoading(false);
         }
     };
     return (
@@ -87,7 +108,9 @@ export function Login() {
                     </Input>
                 </form>
                 <Link to="/recover-password" style={{ display: 'block', paddingBottom: '2rem' }} className="text-xs text-gray-200 hover:text-gray-400 transition-colors">Esqueci minha senha...</Link>
-                <Button className="mb-8 h-12" onClick={handleLogin}>Entrar</Button>
+                <Button className="mb-8 h-12" disabled={loading} onClick={handleLogin}>
+                    {loading ? "Entrando..." : "Entrar"}
+                </Button>
 
                 <span className="flex flex-row items-center justify-center text-center gap-5 pb-8">
                     <hr className="w-full border-gray-700" />

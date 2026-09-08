@@ -7,16 +7,20 @@ import facebook_icon from "../assets/Icons/facebook_icon.png";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useToastStore } from "../store/useToastStore";
+import { useAuthStore } from "../store/useAuthStore";
+import { apiRequest } from "../services/api";
 
 export function Register() {
     const navigate = useNavigate();
     const addToast = useToastStore((state) => state.addToast);
+    const setAuth = useAuthStore((state) => state.setAuth);
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [termos, setTermos] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [errors, setErrors] = useState<{
         nome?: string;
@@ -26,13 +30,13 @@ export function Register() {
         termos?: string;
     }>({});
 
-    const handleRegister = (e: React.MouseEvent) => {
+    const handleRegister = async (e: React.MouseEvent) => {
         e.preventDefault();
         const newErrors: typeof errors = {};
 
-        if (!nome) newErrors.nome = "Nome é obrigatório.";
+        if (!nome.trim()) newErrors.nome = "Nome é obrigatório.";
         
-        if (!email) {
+        if (!email.trim()) {
             newErrors.email = "O email é obrigatório.";
         } else if (!/\S+@\S+\.\S+/.test(email)) {
             newErrors.email = "Formato de email inválido.";
@@ -56,11 +60,29 @@ export function Register() {
 
         setErrors(newErrors);
 
-        if (Object.keys(newErrors).length === 0) {
+        if (Object.keys(newErrors).length > 0) {
+            addToast("Revise os campos antes de continuar.", "error");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const data = await apiRequest<{ user: any; token: string }>('/auth/register', {
+                method: 'POST',
+                data: {
+                    name: nome.trim(),
+                    email: email.trim(),
+                    password: senha,
+                },
+            });
+
+            setAuth(data.user, data.token);
             addToast("Cadastro realizado com sucesso!", "success");
             navigate("/pre-questionnaire");
-        } else {
-            addToast("Revise os campos antes de continuar.", "error");
+        } catch (err: any) {
+            addToast(err.message || "Erro ao realizar cadastro.", "error");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -155,9 +177,10 @@ export function Register() {
                     <Button
                         variant="primary"
                         className="w-full h-12 text-lg mt-2"
+                        disabled={loading}
                         onClick={handleRegister}
                     >
-                        Avançar
+                        {loading ? "Cadastrando..." : "Cadastrar"}
                     </Button>
 
                     <span className="flex flex-row items-center justify-center text-center gap-5 my-4">

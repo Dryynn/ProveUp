@@ -1,8 +1,7 @@
 import React from "react";
 
-type ButtonProps = {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     children: React.ReactNode;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
     variant?: "primary" | "secondary" | "ghost";
     fullWidth?: boolean;
     className?: string;
@@ -19,18 +18,20 @@ export function Button({
     onClick,
     variant = "primary",
     fullWidth = false,
-    className,
+    className = "",
+    disabled,
+    ...rest
 }: ButtonProps) {
     const classes = `
         ${fullWidth ? "w-42" : "w-full"}
         ${variantClasses[variant]}
         h-8 font-bold py-2 px-4 rounded-2xl font-poppins transition-shadow duration-300 justify-center items-center
+        ${disabled ? "opacity-60 cursor-not-allowed" : ""}
         ${className}
         `;
 
-
     return (
-        <button onClick={onClick} className={classes}>
+        <button onClick={onClick} disabled={disabled} className={classes} {...rest}>
             {children}
         </button>
     );
