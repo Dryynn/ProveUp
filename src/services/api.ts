@@ -21,13 +21,20 @@ export async function apiRequest<T = any>(endpoint: string, options: RequestOpti
     config.body = JSON.stringify(data);
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-  const responseData = await response.json().catch(() => ({}));
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+    const responseData = await response.json().catch(() => ({}));
 
-  if (!response.ok) {
-    const errorMessage = responseData?.error || responseData?.message || 'Erro inesperado na requisição.';
-    throw new Error(errorMessage);
+    if (!response.ok) {
+      const errorMessage = responseData?.error || responseData?.message || 'Erro inesperado na requisição.';
+      throw new Error(errorMessage);
+    }
+
+    return responseData as T;
+  } catch (err: any) {
+    if (err.name === 'TypeError' && (err.message.includes('fetch') || err.message.includes('NetworkError'))) {
+      throw new Error('Não foi possível conectar ao servidor backend (http://localhost:3333). Verifique se o servidor está ativo.');
+    }
+    throw err;
   }
-
-  return responseData as T;
 }

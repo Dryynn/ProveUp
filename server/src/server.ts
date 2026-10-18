@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { authRoutes } from './routes/authRoutes.js';
+import { assessmentRoutes } from './routes/assessmentRoutes.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // Rotas da API
 app.use('/api/auth', authRoutes);
+app.use('/api/assessments', assessmentRoutes);
 
 // Rota de Health Check
 app.get('/api/health', (_req, res) => {

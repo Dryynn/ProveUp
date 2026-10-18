@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { loadQuestionnaire, submitAssessment } from '../services/assessments';
+import type { Questionnaire } from '../services/assessments';
+import { useEffect, useState } from "react";
 import { StepIndicator } from "../components/StepIndicator";
 import type { Step } from "../components/StepIndicator";
 import { LikertScale } from "../components/LikertScale";
@@ -27,21 +29,6 @@ const STEPS: Step[] = [
   },
 ];
 
-const QUESTIONS_PART_1 = [
-  { id: "q1", text: "Tenho interesse em tecnologia e gosto de usar ferramentas digitais no meu dia a dia." },
-  { id: "q2", text: "Me sinto motivado(a) ao resolver problemas analíticos ou desafios lógicos." },
-  { id: "q3", text: "Atividades criativas, como design, escrita, arte ou marketing, fazem parte do que eu gosto de aprender." },
-  { id: "q4", text: "Sou uma pessoa organizada e gosto de seguir processos estruturados." },
-  { id: "q5", text: "Gosto de aprender coisas novas com frequência e explorar diferentes áreas." },
-];
-
-const QUESTIONS_PART_2 = [
-  { id: "q6", text: "Gosto de trabalhar em equipe e me comunico bem com outras pessoas." },
-  { id: "q7", text: "Prefiro tarefas que exigem criatividade em vez de rotinas repetitivas." },
-  { id: "q8", text: "Me sinto confortável lidando com números, lógica ou informações detalhadas." },
-  { id: "q9", text: "Tenho facilidade para planejar, organizar e estruturar projetos." },
-  { id: "q10", text: "Me identifico com desafios que exigem pensamento crítico e tomada de decisão." },
-];
 
 export function QuestionnairePage() {
   const navigate = useNavigate();
@@ -50,10 +37,20 @@ export function QuestionnairePage() {
   const [currentPart, setCurrentPart] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
 
-  const questions = currentPart === 1 ? QUESTIONS_PART_1 : QUESTIONS_PART_2;
+  const [questionnaire, setQuestionnaire] = useState<Questionnaire | null>(null);
+  const [loadError, setLoadError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  useEffect(() => {
+    let active = true;
+    loadQuestionnaire().then(data => { if (active) setQuestionnaire(data); })
+      .catch(error => { if (active) setLoadError(error instanceof Error ? error.message : 'Não foi possível carregar as perguntas.'); });
+    return () => { active = false; };
+  }, []);
+  const questions = questionnaire?.questions.filter(q => q.stage === (currentPart === 1 ? 'comportamento' : 'interesse')) ?? [];
   const progress = currentPart === 1 ? "w-1/2" : "w-full";
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (!questionnaire || isSubmitting) return;
     const unanswered = questions.filter((q) => answers[q.id] === undefined);
     
     if (unanswered.length > 0) {
@@ -64,11 +61,20 @@ export function QuestionnairePage() {
       setCurrentPart(2);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      navigate("/result");
+      setIsSubmitting(true);
+      try {
+        const result = await submitAssessment(questionnaire.version, answers);
+        navigate('/result/' + result.id);
+      } catch (error) {
+        addToast(error instanceof Error ? error.message : 'Não foi possível calcular seu resultado.', 'error');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
   const handleBack = () => {
+    if (isSubmitting) return;
     if (currentPart === 2) {
       setCurrentPart(1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -106,16 +112,20 @@ export function QuestionnairePage() {
         </div>
       </div>
 
+      <h1 className="text-2xl font-semibold text-white text-center mb-8">{currentPart === 1 ? 'Como você prefere trabalhar?' : 'Quais atividades despertam seu interesse?'}</h1>
+      {!questionnaire && !loadError && <p role="status" className="text-gray-300 mb-8">Carregando perguntas…</p>}
+      {loadError && <div role="alert" className="text-white text-center mb-8"><p>{loadError}</p><Button className="mt-4" onClick={() => window.location.reload()}>Tentar novamente</Button></div>}
       {/* Questions List */}
       <div className="flex flex-col gap-12 w-full items-center mb-16 px-2">
         {questions.map((q) => (
           <div key={q.id} className="flex flex-col items-center gap-6 w-full max-w-2xl text-center">
-            <h2 className="text-sm lg:text-base font-medium text-white px-4">
+            <h2 id={`${q.id}-label`} className="text-sm lg:text-base font-medium text-white px-4">
               {q.text}
             </h2>
             <LikertScale 
                 questionId={q.id} 
-                value={answers[q.id]}
+                disabled={isSubmitting}
+                value={answers[q.id] ?? null}
                 onChange={(val) => setAnswers(prev => ({ ...prev, [q.id]: val }))}
             />
           </div>
@@ -124,10 +134,11 @@ export function QuestionnairePage() {
 
       {/* Action Buttons */}
       <div className="flex flex-row gap-4 w-full max-w-md pb-10">
-        <Button className="h-12 flex-1" onClick={handleNext}>
-          {currentPart === 1 ? "Avançar" : "Finalizar"}
+        <Button className="h-12 flex-1" disabled={!questionnaire || isSubmitting} onClick={handleNext}>
+          {isSubmitting ? "Calculando resultado…" : currentPart === 1 ? "Avançar" : "Finalizar"}
         </Button>
         <Button 
+            disabled={isSubmitting}
             variant="secondary" 
             className="h-12 flex-1 bg-transparent border-gray-700 text-gray-400 hover:border-gray-500" 
             onClick={handleBack}

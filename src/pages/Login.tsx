@@ -125,7 +125,7 @@ export function Login() {
                         <img src={facebook_icon} alt="Facebook" />
                     </div>
                 </div>
-                <p>Não possui uma conta? <Link to="/register" className="font-medium hover:text-proveup-orange transition-colors">Cadastre-se agora!</Link></p>
+                <p className="text-center text-white">Não possui uma conta? <Link to="/register" className="font-medium hover:text-proveup-orange transition-colors">Cadastre-se agora!</Link></p>
             </div>
         </div>
     );

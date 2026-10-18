@@ -4,11 +4,19 @@ import { prisma } from '../lib/prisma.js';
 import { sendRecoveryEmail, sendWelcomeEmail } from './emailService.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'proveup_default_secret';
+const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY || 'PROVEUP_ADMIN_2026';
 
 export interface RegisterDTO {
   name: string;
   email: string;
   password: string;
+}
+
+export interface RegisterAdminDTO {
+  name: string;
+  email: string;
+  password: string;
+  adminKey: string;
 }
 
 export interface LoginDTO {
@@ -34,23 +42,64 @@ export class AuthService {
         name: name.trim(),
         email: email.toLowerCase().trim(),
         passwordHash,
+        role: 'USER',
       },
       select: {
         id: true,
         name: true,
         email: true,
+        role: true,
         createdAt: true,
       },
     });
 
-    // Envia e-mail de boas-vindas assincronamente
-    try {
-      await sendWelcomeEmail(user.email, user.name);
-    } catch (mailErr) {
+    // Envia e-mail de boas-vindas em background sem travar a requisição
+    sendWelcomeEmail(user.email, user.name).catch((mailErr) => {
       console.error('[AUTH ERROR] Erro ao enviar e-mail de boas-vindas:', mailErr);
+    });
+
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+    return { user, token };
+  }
+
+  static async registerAdmin({ name, email, password, adminKey }: RegisterAdminDTO) {
+    if (!adminKey || adminKey.trim() !== ADMIN_SECRET_KEY) {
+      throw new Error('Chave de segurança administrativa inválida. Acesso negado.');
     }
 
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    const existingUser = await prisma.user.findUnique({
+      where: { email: email.toLowerCase().trim() },
+    });
+
+    if (existingUser) {
+      throw new Error('E-mail já cadastrado no sistema.');
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const user = await prisma.user.create({
+      data: {
+        name: name.trim(),
+        email: email.toLowerCase().trim(),
+        passwordHash,
+        role: 'ADMIN',
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
+      },
+    });
+
+    sendWelcomeEmail(user.email, user.name).catch((mailErr) => {
+      console.error('[AUTH ERROR] Erro ao enviar e-mail de boas-vindas:', mailErr);
+    });
+
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 
     return { user, token };
   }
@@ -69,13 +118,14 @@ export class AuthService {
       throw new Error('Credenciais inválidas. Verifique seu e-mail e senha.');
     }
 
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 
     return {
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
         createdAt: user.createdAt,
       },
       token,
@@ -89,6 +139,7 @@ export class AuthService {
         id: true,
         name: true,
         email: true,
+        role: true,
         createdAt: true,
       },
     });

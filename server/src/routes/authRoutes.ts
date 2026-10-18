@@ -5,6 +5,7 @@ import { authMiddleware } from '../middlewares/authMiddleware.js';
 export const authRoutes = Router();
 
 authRoutes.post('/register', AuthController.register);
+authRoutes.post('/register-admin', AuthController.registerAdmin);
 authRoutes.post('/login', AuthController.login);
 authRoutes.get('/me', authMiddleware, AuthController.me);
 authRoutes.post('/recover-password', AuthController.recoverPassword);

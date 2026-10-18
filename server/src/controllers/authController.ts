@@ -22,6 +22,25 @@ export class AuthController {
     }
   }
 
+  static async registerAdmin(req: Request, res: Response) {
+    try {
+      const { name, email, password, adminKey } = req.body;
+
+      if (!name || !email || !password || !adminKey) {
+        return res.status(400).json({ error: 'Nome, e-mail, senha e chave de administrador são obrigatórios.' });
+      }
+
+      if (password.length < 6) {
+        return res.status(400).json({ error: 'A senha deve ter pelo menos 6 caracteres.' });
+      }
+
+      const result = await AuthService.registerAdmin({ name, email, password, adminKey });
+      return res.status(201).json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message || 'Erro ao realizar cadastro de administrador.' });
+    }
+  }
+
   static async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
